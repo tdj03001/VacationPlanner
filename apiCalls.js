@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     //     DROP DATABASE IF EXISTS vacation_db;
@@ -107,5 +108,5 @@ $(document).ready(function () {
     // artMuseums();
     
     location();
-});
 
+});
