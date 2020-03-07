@@ -20,7 +20,7 @@ $(document).ready(function () {
     //     dayof INT not null,
     //     PRIMARY KEY (id)
     // );
-  
+
 
     const hotels = {
         name: "hotel",
@@ -66,7 +66,7 @@ $(document).ready(function () {
 
             console.log(latitude, longitude);
 
-           
+
 
             //console.log(categories.hotelsl.name);
 
@@ -80,15 +80,15 @@ $(document).ready(function () {
 
     // const { nightlife: { name } } = nameArr;
     // console.log(name) //bars
-   
+
 
     const callApi = (latitude, longitude, categories) => {
         const ajaxCalls = [];
-        
+
         categories.forEach((data, index) => {
-         
+
             const call = $.ajax({
-              
+
                 url: `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${categories[index].name}&radius=3000&lon=${longitude}&lat=${latitude}&kinds=${categories[index].kinds}&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
                 method: "GET"
 
@@ -98,21 +98,46 @@ $(document).ready(function () {
         })
         console.log(ajaxCalls);
         Promise.all(ajaxCalls).then((data, err) => {
-            console.log("promise data")
-            
+            // console.log("promise data")
+
             itineraryOptions(data, vacaLength);
         });
     };
-    const  vacaLength = 3;
-    const itineraryOptions = (data, vacaLength) => {
-        console.log("navigate data");
-        console.log(data[0][0].xid);
+    const vacaLength = 3;
+
+    const itineraryOptions = ((data, vacaLength) => {
+        // console.log("navigate data");
+        // console.log(data);
+        const xidArr = [];
         //forEach data index, I want xid from first three
-        data.forEach((curr, index) => {
+        data.forEach(array => {
+            for (var i = 0; i < vacaLength; i++){
+                console.log("inside for loop");
+            xidArr.push(array[i].xid);
+            }
+        });
+        console.log(xidArr);
+    });
 
-        })
+    // const vacaLength = 3;
 
-    }
+    // const itineraryOptions = (data, vacaLength) => {
+    //     // console.log("navigate data");
+    //     const xidArr = [];
+    //     //forEach data index, I want xid from first three
+    //     data.forEach((array) => {
+    //         for (var i = 0; i < vacaLength; i++) {
+    //             xidArr.push(array[i].xid)
+    //         }
+    //     });
+    //     console.log(xidArr);
+    // };
+
+
+
+
+
+
 
     // console.log(promiseData);
 
