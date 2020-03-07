@@ -1,6 +1,9 @@
 // Requiring our models and passport as we've configured it
+require("dotenv").config();
+
 var db = require("../models");
 var passport = require("../config/passport");
+const  apiKey = process.env.API_KEY;
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
