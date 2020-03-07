@@ -20,10 +20,37 @@ $(document).ready(function () {
     //     dayof INT not null,
     //     PRIMARY KEY (id)
     // );
+  
+
+    const hotels = {
+        name: "hotel",
+        kinds: "accomodations"
+    };
+    const museums = {
+        name: "art",
+        kinds: "museums"
+    };
+
+    const food = {
+        name: "restaurant",
+        kinds: "foods"
+    };
+
+    const music = {
+        name: "music",
+        kinds: "theatres_and_entertainments"
+    };
+
+    const nightlife = {
+        name: "bar",
+        kinds: "foods"
+    };
+
+    const categories = [hotels, museums, food, music, nightlife];
 
     const location = () => {
 
-        var testURL = "https://api.opentripmap.com/0.1/en/places/geoname?name=philadelphia&country=us&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d";
+        let testURL = "https://api.opentripmap.com/0.1/en/places/geoname?name=philadelphia&country=us&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d";
 
         $.ajax({
             url: testURL,
@@ -31,82 +58,68 @@ $(document).ready(function () {
 
         }).then(function (response) {
 
-            console.log("location call");
-            console.log(response);
+            // console.log("location call");
+            //console.log(response);
             let cityName = response.name;
             let latitude = response.lat;
             let longitude = response.lon;
 
+            console.log(latitude, longitude);
+
+           
+
+            //console.log(categories.hotelsl.name);
+
+            callApi(latitude, longitude, categories);
+
         });
     };
 
-    // Outdoors
-    // Nightlife
-    // Cultuer’museums
-    // Food and beverage
-    // Hotels in area
 
-    //promise.All
 
-    // const nameArr = {
-    //     nightlife: {
-    //         name: "bars",
-    //         kind: "karoke"
-    //     },
-    //     outdoors: {
-    //         name: "natural",
-    //         kind: "water"
-    //     }
-    // }
+
     // const { nightlife: { name } } = nameArr;
     // console.log(name) //bars
+   
 
-    const promiseArray = [];
-    const categories = ["nightlife", "outdoors"];
-    const callApi = (name, kind) => {
-        $.ajax({
-            method: "GET",
-            url: "<Some api>"
-        }).catch(error => (console.log(error)))
+    const callApi = (latitude, longitude, categories) => {
+        const ajaxCalls = [];
+        
+        categories.forEach((data, index) => {
+         
+            const call = $.ajax({
+              
+                url: `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${categories[index].name}&radius=3000&lon=${longitude}&lat=${latitude}&kinds=${categories[index].kinds}&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
+                method: "GET"
+
+            });
+            ajaxCalls.push(call);
+
+        })
+        console.log(ajaxCalls);
+        Promise.all(ajaxCalls).then((data, err) => {
+            console.log("promise data")
+            
+            itineraryOptions(data, vacaLength);
+        });
+    };
+    const  vacaLength = 3;
+    const itineraryOptions = (data, vacaLength) => {
+        console.log("navigate data");
+        console.log(data[0][0].xid);
+        //forEach data index, I want xid from first three
+        data.forEach((curr, index) => {
+
+        })
+
     }
-    categories.forEach(category => {
-        promiseArray.push(callApi(category))
-    });
-    Promise.all(promiseArray).then(
-        values => (console.log(values)) //Array of data from ajax calls
-    );
 
-    // const nameArr = {
-    //     outdoors: {
-    //         name: hiking
-    //     kind: 
-    // }
-    }
+    // console.log(promiseData);
 
-    // var testURL = `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${nameArr.outdoors.name}radius=3000&lon=-75.1652&lat=39.9526&kinds=museums&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`;
-
-    // const kindsArr = [museums,]
-
-    // const artMuseums = () => {
-
-    //     var testURL = "https://api.opentripmap.com/0.1/en/places/autosuggest?name=art&radius=3000&lon=-75.1652&lat=39.9526&kinds=museums&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d";
-
-    //     $.ajax({
-    //         url: testURL,
-    //         method: "GET"
-
-    //     }).then(function (response) {
-
-    //         console.log("art museum call");
-    //         console.log(response);
-    //         console.log(response[0].name);
+    //1. categories selected should be passed as an array
+    //2. number of days passed as variable
+    //
 
 
-    //     });
-    // };
-
-    // artMuseums();
-    
     location();
-
 });
