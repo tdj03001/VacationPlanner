@@ -147,9 +147,8 @@ $(document).ready(function () {
 
 
     location();
-<<<<<<< HEAD
-});
-=======
+
 });
 
->>>>>>> master
+
+
