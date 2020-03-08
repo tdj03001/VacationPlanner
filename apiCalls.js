@@ -147,5 +147,8 @@ $(document).ready(function () {
 
 
     location();
+
 });
+
+
 
