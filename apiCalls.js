@@ -137,7 +137,10 @@ $(document).ready(function () {
                 let xidDescripObj = {
                     name: response.name,
                     address: response.address.road,
-                    bio: response.wikipedia_extracts
+                    bio: response.wikipedia_extracts, //Tyler: this is an object that needs to be navitated to get the bio.  It will be bio.text to get the actualy bio blurb.
+                    image: response.preview, //image of location.  comes back as undefined if not provided.
+                    card: response.otm, // probably not usuable but its a card the api makes with wiki data if its included in the object
+                    url: response.url //url is usually a booking site included in the hotel bookings.
 
                 };
 
