@@ -60,7 +60,7 @@ $(document).ready(function () {
 
             // console.log("location call");
             //console.log(response);
-            let cityName = response.name;
+            // let cityName = response.name;
             let latitude = response.lat;
             let longitude = response.lon;
 
@@ -111,13 +111,61 @@ $(document).ready(function () {
         const xidArr = [];
         //forEach data index, I want xid from first three
         data.forEach(array => {
-            for (var i = 0; i < vacaLength; i++){
+            for (var i = 0; i < vacaLength; i++) {
                 console.log("inside for loop");
-            xidArr.push(array[i].xid);
+                xidArr.push(array[i].xid);
             }
         });
-        console.log(xidArr);
+        getXidInfo(xidArr);
     });
+
+    const getXidInfo = (xidArr) => {
+
+        let xidInfoArr = [];
+
+        xidArr.forEach(array => {
+
+            // console.log(array);
+
+            const call = $.ajax({
+                url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
+                method: "GET"
+            }).then(response => {
+                console.log("response")
+                console.log(response);
+
+                let xidDescripObj = {
+                    name: response.name,
+                    address: response.address.road,
+                    bio: response.wikipedia_extracts
+
+                };
+
+                // if (response.wikipedia_extracts.text === 'undefined'){
+
+                //     let xidDescripObj = {
+                //         name: response.name,
+                //         address: response.address.road
+
+                //     };
+                //     xidInfoArr.push(xidDescripObj);
+                // } else {
+                //     let xidDescripObj = {
+                //         name: response.name,
+                //         address: response.address.road,
+                //         bio: response.wikipedia_extracts.text
+
+                //     };
+                // }
+
+                xidInfoArr.push(xidDescripObj);
+                console.log(xidInfoArr)
+            })
+
+        })
+
+
+    }
 
     // const vacaLength = 3;
 
@@ -149,6 +197,3 @@ $(document).ready(function () {
     location();
 
 });
-
-
-
