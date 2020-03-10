@@ -9,19 +9,20 @@ $(document).ready(function () {
     }
 
     const userCategories = {
-      nightlife: $("#nightlife").is(':checked'),
+      bar: $("#nightlife").is(':checked'),
 
       // .trim(),
-      museums: $("#museums").is(':checked'),
+      art: $("#museums").is(':checked'),
       // .trim(),
-      food: $("#food").is(':checked'),
+      restaurant: $("#food").is(':checked'),
       // .trim(),
-      hotels: $("#hotels").is(':checked'),
+      hotel: $("#hotels").is(':checked'),
       // .trim(),
       music: $("#music").is(':checked')
 
     }
-
+   
+    //Puts only true category responses into an userCategories final Array
     const userCategoriesArr = Object.entries(userCategories);
     const userCategoriesFinal = [];
 
@@ -31,39 +32,70 @@ $(document).ready(function () {
       }
     }
 
+    console.log("1111111")
 
-    console.log(userCategoriesFinal);
-    // location(userCityDays, userCategories);
+
+    // console.log(userCategoriesFinal);
+    // apiCategoriesArrayMaker(userCategoriesFinal)
+    // location(userCityDays, apiCategoriesArrayMaker);
+    control();
   });
 
+    
+  async function control () {
+    console.log("222222222")
+    try {
+      
+    } catch (error) {
+      console.log(err);
+    }
+    
+  }
 
-  const hotels = {
-    name: "hotel",
-    kinds: "accomodations"
-  };
-  const museums = {
-    name: "art",
-    kinds: "museums"
-  };
+  const apiCategoriesArrayMaker = (userCategoriesFinal) => {
+    const hotels = {
+      name: "hotel",
+      kinds: "accomodations"
+    };
+    const museums = {
+      name: "art",
+      kinds: "museums"
+    };
 
-  const food = {
-    name: "restaurant",
-    kinds: "foods"
-  };
+    const food = {
+      name: "restaurant",
+      kinds: "foods"
+    };
 
-  const music = {
-    name: "music",
-    kinds: "theatres_and_entertainments"
-  };
+    const music = {
+      name: "music",
+      kinds: "theatres_and_entertainments"
+    };
 
-  const nightlife = {
-    name: "bar",
-    kinds: "foods"
-  };
+    const nightlife = {
+      name: "bar",
+      kinds: "foods"
+    };
 
-  const categories = [hotels, museums, food, music, nightlife];
+    const categories = [hotels, museums, food, music, nightlife];
+    const apiCategories = [];
 
-  const location = (userCityDays) => {
+    // console.log(userCategoriesFinal, nightlife);
+    // console.log(categories);
+    userCategoriesFinal.forEach(index => {
+      for (const category of categories) {
+        // console.log(index);
+        if (index === category.name){
+          apiCategories.push(category);
+        }
+        
+      }
+    })
+
+    return apiCategories;
+  }
+
+  const location = (userCityDays, apiCategoriesArrayMaker) => {
 
     let testURL = `https://api.opentripmap.com/0.1/en/places/geoname?name=${userCityDays.city}&country=us&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`;
 
@@ -79,14 +111,14 @@ $(document).ready(function () {
       let latitude = response.lat;
       let longitude = response.lon;
 
-      console.log(cityName, latitude, longitude);;
+      console.log(cityName, latitude, longitude, apiCategoriesArrayMaker);;
 
-      // callApi(latitude, longitude, categories);
+      // callApi(latitude, longitude, apiCategoriesArrayMaker);
 
     });
   };
 
-  const callApi = (latitude, longitude, categories) => {
+  const callApi = (latitude, longitude, apiCategoriesArrayMaker) => {
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
