@@ -15,22 +15,20 @@ $(document).ready(function() {
     };
     // Takes values from user categories, creates object
     const userCategories = {
-      bar: $("#nightlife").is(':checked'),
-
+      bar: $("#nightlife").is(":checked"),
       // .trim(),
-      art: $("#museums").is(':checked'),
+      art: $("#museums").is(":checked"),
       // .trim(),
-      restaurant: $("#food").is(':checked'),
+      restaurant: $("#food").is(":checked"),
       // .trim(),
-      hotel: $("#hotels").is(':checked'),
+      hotel: $("#hotels").is(":checked"),
       // .trim(),
-      music: $("#music").is(':checked')
-
-    }
+      music: $("#music").is(":checked")
+    };
 
     //Puts only true category responses into an userCategories final Array
     const userCategoriesArr = Object.entries(userCategories);
-    // Store user values 
+    // Store user values
     const userCategoriesFinal = [];
     // Loop through userCategoriesArr for true values and add to userCategoriesFinal
     for (const [key, value] of userCategoriesArr) {
@@ -38,38 +36,26 @@ $(document).ready(function() {
         userCategoriesFinal.push(key);
       }
     }
-
-    console.log("1111111")
-
-    console.log(userCategoriesFinal, userCityDays);
-    // location(userCityDays, apiCategoriesArrayMaker);
     control(userCategoriesFinal, userCityDays);
   });
 
-
   async function control(userCategoriesFinal, userCityDays) {
-    console.log("3333333333")
     try {
       const categories = await apiCategoriesArrayMaker(userCategoriesFinal);
       const coordinates = await getCoordinates(userCityDays);
       const apiData = await apiCall(categories, coordinates);
-      const itineraryOptions = await itineraryData(apiData, userCityDays);
-      const itineraryObjArr = await getXidInfo(itineraryOptions);
-
+      const itineraryOptions = await itineraryData(apiData, userCityDays)
 
       console.log("xidInfoArr");
       console.log(itineraryObjArr);
       choices.display(itineraryObjArr);
 
-
     } catch (error) {
-      console.log(error);
+      return error;
     }
-
   }
 
-
-  const apiCategoriesArrayMaker = (userCategoriesFinal) => {
+  const apiCategoriesArrayMaker = userCategoriesFinal => {
     console.log("33333333333");
     const hotels = {
       name: "hotel",
@@ -98,48 +84,29 @@ $(document).ready(function() {
     const categories = [hotels, museums, food, music, nightlife];
     const apiCategories = [];
 
-    // console.log(userCategoriesFinal, nightlife);
-    // console.log(categories);
     userCategoriesFinal.forEach(index => {
       for (const category of categories) {
-        // console.log(index);
         if (index === category.name) {
           apiCategories.push(category);
         }
-
       }
-    })
+    });
 
     return apiCategories;
-  }
+  };
 
   const getCoordinates = (userCityDays, apiCategoriesArrayMaker) => {
-
-
     let testURL = `https://api.opentripmap.com/0.1/en/places/geoname?name=${userCityDays.city}&country=us&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`;
 
     const coordinates = $.ajax({
       url: testURL,
       method: "GET"
     }).then(function(response) {
-
-      // console.log("location call");
-      //console.log(response);
-      // let cityName = response.name;
-      // let latitude = response.lat;
-      // let longitude = response.lon;
-
       let coordinates = {
         latitude: response.lat,
         longitude: response.lon
       };
-      return (coordinates);
-
-      console.log(cityName, latitude, longitude, apiCategoriesArrayMaker);;
-      console.log(coordinates)
-
-      // callApi(latitude, longitude, apiCategoriesArrayMaker);
-
+      return coordinates;
     });
     return coordinates;
   };
@@ -150,27 +117,17 @@ $(document).ready(function() {
 
     categories.forEach((data, index) => {
       const call = $.ajax({
-
-
         url: `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${categories[index].name}&radius=10000&lon=${coordinates.longitude}&lat=${coordinates.latitude}&kinds=${categories[index].kinds}&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
       });
       ajaxCalls.push(call);
-
-
-    })
-    // console.log(ajaxCalls);
+    });
     const data = Promise.all(ajaxCalls).then((data, err) => {
-      console.log("promise data")
-
-      // itineraryOptions(data, vacaLength);
+      console.log("promise data");
       return data;
-
     });
     return data;
   };
-
-  // const vacaLength = 3;
 
   const itineraryData = (apiData, userCityDays) => {
     console.log("navigate data");
@@ -183,24 +140,19 @@ $(document).ready(function() {
         xidArr.push(array[i].xid);
       }
     });
-    return(xidArr);
+    return xidArr;
   };
 
   const getXidInfo = xidArr => {
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
-
-
       console.log(array);
 
       $.ajax({
         url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
       }).then(response => {
-        // console.log("response")
-        // console.log(response);
-
         let xidDescripObj = {
           name: response.name,
           address: response.address.road,
@@ -211,10 +163,8 @@ $(document).ready(function() {
         };
 
         xidInfoArr.push(xidDescripObj);
-        // console.log(xidInfoArr)
-      })
-    })
-    return(xidInfoArr);
-  }
-  // location();
+      });
+    });
+    return xidInfoArr;
+  };
 });
