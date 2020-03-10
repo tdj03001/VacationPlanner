@@ -76,7 +76,7 @@ $(document).ready(function() {
       kinds: "accomodations"
     };
     const museums = {
-      name: "art",
+      name: "all",
       kinds: "museums"
     };
 
