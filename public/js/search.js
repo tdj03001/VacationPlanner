@@ -15,7 +15,12 @@ $(document).ready(function() {
     };
     // Takes values from user categories, creates object
     const userCategories = {
+<<<<<<< HEAD
+      bar: $("#nightlife").is(':checked'),
+
+=======
       bar: $("#nightlife").is(":checked"),
+>>>>>>> master
       // .trim(),
       art: $("#museums").is(":checked"),
       // .trim(),
