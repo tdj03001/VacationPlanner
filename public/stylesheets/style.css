@@ -7,3 +7,25 @@ label {
   margin-right: 15px;
   margin-bottom: 15px;
 }
+
+.title {
+  color: aqua;
+}
+
+.subtitle {
+  color: white;
+  font-style: italic;
+}
+
+.has-bg-img {
+  background-image: url('../img/cityskyline.png');
+  background-size: cover;
+}
+
+.welcomeMsg, .logoutBtn {
+  color: lightgrey;
+}
+
+.button {
+  background-color: aqua;
+}

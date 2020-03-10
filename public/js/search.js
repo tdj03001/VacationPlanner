@@ -1,14 +1,19 @@
-$(document).ready(function () {
-  $("#submit").on("click", function () {
+$(document).ready(function() {
+  $("#submit").on("click", function() {
     event.preventDefault();
 
+    // Takes values from user city and days from input, creates object
     const userCityDays = {
-      city: $("#cityName").val().trim(),
-      days: $("#days").val().trim()
-
-    }
-
+      city: $("#cityName")
+        .val()
+        .trim(),
+      days: $("#days")
+        .val()
+        .trim()
+    };
+    // Takes values from user categories, creates object
     const userCategories = {
+
       bar: $("#nightlife").is(':checked'),
 
       // .trim(),
@@ -23,14 +28,17 @@ $(document).ready(function () {
     }
 
     //Puts only true category responses into an userCategories final Array
-    const userCategoriesArr = Object.entries(userCategories);
-    const userCategoriesFinal = [];
 
+    const userCategoriesArr = Object.entries(userCategories);
+    // Store user values 
+    const userCategoriesFinal = [];
+    // Loop through userCategoriesArr for true values and add to userCategoriesFinal
     for (const [key, value] of userCategoriesArr) {
       if (value === true) {
         userCategoriesFinal.push(key);
       }
     }
+
 
     console.log("1111111")
 
@@ -50,6 +58,7 @@ $(document).ready(function () {
       const itineraryOptions = await itineraryData(apiData, userCityDays);
       const itineraryObjArr = await getXidInfo(itineraryOptions);
 
+
       console.log("xidInfoArr");
       console.log(itineraryObjArr);
 
@@ -59,6 +68,7 @@ $(document).ready(function () {
     }
 
   }
+
 
   const apiCategoriesArrayMaker = (userCategoriesFinal) => {
     console.log("33333333333");
@@ -106,13 +116,13 @@ $(document).ready(function () {
 
   const getCoordinates = (userCityDays, apiCategoriesArrayMaker) => {
 
+
     let testURL = `https://api.opentripmap.com/0.1/en/places/geoname?name=${userCityDays.city}&country=us&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`;
 
     const coordinates = $.ajax({
       url: testURL,
       method: "GET"
-
-    }).then(function (response) {
+    }).then(function(response) {
 
       // console.log("location call");
       //console.log(response);
@@ -137,17 +147,18 @@ $(document).ready(function () {
 
   const apiCall = (categories, coordinates) => {
     console.log(categories);
+
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
-
       const call = $.ajax({
+
 
         url: `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${categories[index].name}&radius=10000&lon=${coordinates.longitude}&lat=${coordinates.latitude}&kinds=${categories[index].kinds}&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
-
       });
       ajaxCalls.push(call);
+
 
     })
     // console.log(ajaxCalls);
@@ -156,9 +167,11 @@ $(document).ready(function () {
 
       // itineraryOptions(data, vacaLength);
       return data;
+
     });
     return data;
   };
+
   // const vacaLength = 3;
 
   const itineraryData = (apiData, userCityDays) => {
@@ -175,11 +188,11 @@ $(document).ready(function () {
     return(xidArr);
   };
 
-  const getXidInfo = (xidArr) => {
-
+  const getXidInfo = xidArr => {
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
+
 
       console.log(array);
 
@@ -190,6 +203,7 @@ $(document).ready(function () {
         // console.log("response")
         // console.log(response);
 
+
         let xidDescripObj = {
           name: response.name,
           address: response.address.road,
@@ -197,16 +211,14 @@ $(document).ready(function () {
           image: response.preview, //image of location.  comes back as undefined if not provided.
           card: response.otm, // probably not usuable but its a card the api makes with wiki data if its included in the object
           url: response.url //url is usually a booking site included in the hotel bookings.
-
         };
 
         xidInfoArr.push(xidDescripObj);
+
         // console.log(xidInfoArr)
       })
     })
     return(xidInfoArr);
   }
-
   // location();
-
 });

@@ -11,6 +11,7 @@ module.exports = function(app) {
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function(req, res) {
     // Sending back a password, even a hashed password, isn't a good idea
+    console.log('this gets called');
     res.json({
       email: req.user.email,
       id: req.user.id
@@ -53,4 +54,8 @@ module.exports = function(app) {
       });
     }
   });
+
+  app.get("/mainnick", function(req, res){
+    res.sendFile(path.join(__dirname, "../public/mainNick.html"));
+  })
 };
