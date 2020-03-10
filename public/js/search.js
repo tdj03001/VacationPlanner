@@ -13,7 +13,6 @@ $(document).ready(function() {
     };
     // Takes values from user categories, creates object
     const userCategories = {
-
       bar: $("#nightlife").is(':checked'),
 
       // .trim(),
@@ -28,7 +27,6 @@ $(document).ready(function() {
     }
 
     //Puts only true category responses into an userCategories final Array
-
     const userCategoriesArr = Object.entries(userCategories);
     // Store user values 
     const userCategoriesFinal = [];
@@ -39,9 +37,7 @@ $(document).ready(function() {
       }
     }
 
-
     console.log("1111111")
-
 
     console.log(userCategoriesFinal, userCityDays);
     // location(userCityDays, apiCategoriesArrayMaker);
@@ -77,7 +73,7 @@ $(document).ready(function() {
       kinds: "accomodations"
     };
     const museums = {
-      name: "art",
+      name: "all",
       kinds: "museums"
     };
 
@@ -147,7 +143,6 @@ $(document).ready(function() {
 
   const apiCall = (categories, coordinates) => {
     console.log(categories);
-
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
@@ -203,7 +198,6 @@ $(document).ready(function() {
         // console.log("response")
         // console.log(response);
 
-
         let xidDescripObj = {
           name: response.name,
           address: response.address.road,
@@ -214,7 +208,6 @@ $(document).ready(function() {
         };
 
         xidInfoArr.push(xidDescripObj);
-
         // console.log(xidInfoArr)
       })
     })
