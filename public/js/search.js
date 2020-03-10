@@ -39,7 +39,7 @@ $(document).ready(function() {
 
     console.log("1111111")
 
-
+g
 
 
     console.log(userCategoriesFinal, userCityDays);
