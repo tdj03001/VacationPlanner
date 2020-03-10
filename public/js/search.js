@@ -1,3 +1,5 @@
+const choices = require('./choices');
+
 $(document).ready(function() {
   $("#submit").on("click", function() {
     event.preventDefault();
@@ -42,8 +44,12 @@ $(document).ready(function() {
       const categories = await apiCategoriesArrayMaker(userCategoriesFinal);
       const coordinates = await getCoordinates(userCityDays);
       const apiData = await apiCall(categories, coordinates);
-      const itineraryOptions = await itineraryData(apiData, userCityDays);
-      const itineraryObjArr = await getXidInfo(itineraryOptions);
+      const itineraryOptions = await itineraryData(apiData, userCityDays)
+
+      console.log("xidInfoArr");
+      console.log(itineraryObjArr);
+      choices.display(itineraryObjArr);
+
     } catch (error) {
       return error;
     }
