@@ -13,14 +13,22 @@ $(document).ready(function() {
     };
     // Takes values from user categories, creates object
     const userCategories = {
-      nightlife: $("#nightlife").is(":checked"),
-      museums: $("#museums").is(":checked"),
-      food: $("#food").is(":checked"),
-      hotels: $("#hotels").is(":checked"),
-      music: $("#music").is(":checked")
-    };
 
-    // Creates an array of the key-value pairs from userCategories object
+      bar: $("#nightlife").is(':checked'),
+
+      // .trim(),
+      art: $("#museums").is(':checked'),
+      // .trim(),
+      restaurant: $("#food").is(':checked'),
+      // .trim(),
+      hotel: $("#hotels").is(':checked'),
+      // .trim(),
+      music: $("#music").is(':checked')
+
+    }
+
+    //Puts only true category responses into an userCategories final Array
+
     const userCategoriesArr = Object.entries(userCategories);
     // Store user values 
     const userCategoriesFinal = [];
@@ -31,92 +39,170 @@ $(document).ready(function() {
       }
     }
 
+
+    console.log("1111111")
+
+
+    console.log(userCategoriesFinal, userCityDays);
+    // location(userCityDays, apiCategoriesArrayMaker);
+    control(userCategoriesFinal, userCityDays);
   });
 
-  // Not entirely sure what these objects are doing 
-  const hotels = {
-    name: "hotel",
-    kinds: "accomodations"
-  };
-  const museums = {
-    name: "art",
-    kinds: "museums"
-  };
 
-  const food = {
-    name: "restaurant",
-    kinds: "foods"
-  };
+  async function control(userCategoriesFinal, userCityDays) {
+    console.log("3333333333")
+    try {
+      const categories = await apiCategoriesArrayMaker(userCategoriesFinal);
+      const coordinates = await getCoordinates(userCityDays);
+      const apiData = await apiCall(categories, coordinates);
+      const itineraryOptions = await itineraryData(apiData, userCityDays);
+      const itineraryObjArr = await getXidInfo(itineraryOptions);
 
-  const music = {
-    name: "music",
-    kinds: "theatres_and_entertainments"
-  };
 
-  const nightlife = {
-    name: "bar",
-    kinds: "foods"
-  };
+      console.log("xidInfoArr");
+      console.log(itineraryObjArr);
 
-  // Array of potential categories - looks like it never gets used? 
-  const categories = [hotels, museums, food, music, nightlife];
 
-  // Function to get location - not sure where location gets used - can it be deleted?
-  const location = userCityDays => {
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+
+  const apiCategoriesArrayMaker = (userCategoriesFinal) => {
+    console.log("33333333333");
+    const hotels = {
+      name: "hotel",
+      kinds: "accomodations"
+    };
+    const museums = {
+      name: "art",
+      kinds: "museums"
+    };
+
+    const food = {
+      name: "restaurant",
+      kinds: "foods"
+    };
+
+    const music = {
+      name: "music",
+      kinds: "theatres_and_entertainments"
+    };
+
+    const nightlife = {
+      name: "bar",
+      kinds: "foods"
+    };
+
+    const categories = [hotels, museums, food, music, nightlife];
+    const apiCategories = [];
+
+    // console.log(userCategoriesFinal, nightlife);
+    // console.log(categories);
+    userCategoriesFinal.forEach(index => {
+      for (const category of categories) {
+        // console.log(index);
+        if (index === category.name) {
+          apiCategories.push(category);
+        }
+
+      }
+    })
+
+    return apiCategories;
+  }
+
+  const getCoordinates = (userCityDays, apiCategoriesArrayMaker) => {
+
+
     let testURL = `https://api.opentripmap.com/0.1/en/places/geoname?name=${userCityDays.city}&country=us&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`;
 
-    $.ajax({
+    const coordinates = $.ajax({
       url: testURL,
       method: "GET"
     }).then(function(response) {
 
-      let cityName = response.name;
-      let latitude = response.lat;
-      let longitude = response.lon;
+      // console.log("location call");
+      //console.log(response);
+      // let cityName = response.name;
+      // let latitude = response.lat;
+      // let longitude = response.lon;
 
-      console.log(cityName, latitude, longitude);
+      let coordinates = {
+        latitude: response.lat,
+        longitude: response.lon
+      };
+      return (coordinates);
+
+      console.log(cityName, latitude, longitude, apiCategoriesArrayMaker);;
+      console.log(coordinates)
+
+      // callApi(latitude, longitude, apiCategoriesArrayMaker);
+
     });
+    return coordinates;
   };
 
-  // This function looks like it's never used - can it be deleted?
-  const callApi = (latitude, longitude, categories) => {
+  const apiCall = (categories, coordinates) => {
+    console.log(categories);
+
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
       const call = $.ajax({
-        url: `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${categories[index].name}&radius=3000&lon=${longitude}&lat=${latitude}&kinds=${categories[index].kinds}&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
+
+
+        url: `https://api.opentripmap.com/0.1/en/places/autosuggest?name=${categories[index].name}&radius=10000&lon=${coordinates.longitude}&lat=${coordinates.latitude}&kinds=${categories[index].kinds}&rate=1&format=json&apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
       });
       ajaxCalls.push(call);
-    });
-    console.log(ajaxCalls);
 
-    Promise.all(ajaxCalls).then((data, err) => {
-      itineraryOptions(data, vacaLength);
+
+    })
+    // console.log(ajaxCalls);
+    const data = Promise.all(ajaxCalls).then((data, err) => {
+      console.log("promise data")
+
+      // itineraryOptions(data, vacaLength);
+      return data;
+
     });
+    return data;
   };
-  
-  // Test length of vacation
-  const vacaLength = 3;
 
-  const itineraryOptions = (data, vacaLength) => {
+  // const vacaLength = 3;
+
+  const itineraryData = (apiData, userCityDays) => {
+    console.log("navigate data");
+    console.log(apiData, userCityDays.days);
     const xidArr = [];
-    data.forEach(array => {
-      for (var i = 0; i < vacaLength; i++) {
+    //forEach data index, I want xid from first three
+    apiData.forEach(array => {
+      for (var i = 0; i < userCityDays.days; i++) {
+        console.log("inside for loop");
         xidArr.push(array[i].xid);
       }
     });
-    getXidInfo(xidArr);
+    return(xidArr);
   };
 
   const getXidInfo = xidArr => {
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
-      const call = $.ajax({
+
+
+      console.log(array);
+
+      $.ajax({
         url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
       }).then(response => {
+        // console.log("response")
+        // console.log(response);
+
 
         let xidDescripObj = {
           name: response.name,
@@ -128,10 +214,11 @@ $(document).ready(function() {
         };
 
         xidInfoArr.push(xidDescripObj);
-        console.log(xidInfoArr);
-      });
-    });
-  };
 
+        // console.log(xidInfoArr)
+      })
+    })
+    return(xidInfoArr);
+  }
   // location();
 });
