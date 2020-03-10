@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $.get("/api/user_data").then(function(data) {
-    $(".member-name").text(data.email);
+    console.log(data);
+    $(".member-name").text(data.name);
   });
 });
