@@ -1,3 +1,5 @@
+const choices = require('./choices');
+
 $(document).ready(function() {
   $("#submit").on("click", function() {
     event.preventDefault();
@@ -57,6 +59,7 @@ $(document).ready(function() {
 
       console.log("xidInfoArr");
       console.log(itineraryObjArr);
+      choices.display(itineraryObjArr);
 
 
     } catch (error) {
@@ -73,7 +76,7 @@ $(document).ready(function() {
       kinds: "accomodations"
     };
     const museums = {
-      name: "all",
+      name: "art",
       kinds: "museums"
     };
 
