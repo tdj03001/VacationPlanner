@@ -39,9 +39,6 @@ $(document).ready(function() {
 
     console.log("1111111")
 
-g
-
-
     console.log(userCategoriesFinal, userCityDays);
     // location(userCityDays, apiCategoriesArrayMaker);
     control(userCategoriesFinal, userCityDays);
@@ -76,7 +73,7 @@ g
       kinds: "accomodations"
     };
     const museums = {
-      name: "art",
+      name: "all",
       kinds: "museums"
     };
 
