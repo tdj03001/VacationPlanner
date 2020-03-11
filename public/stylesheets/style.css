@@ -38,7 +38,14 @@ label {
   font-size: medium;
 }
 
-.button {
+#submitwrapper {
+  text-align: center;
+}
+
+#submit {
   background-color: aqua;
-  margin: auto 100%;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  display: inline-block;
 }
