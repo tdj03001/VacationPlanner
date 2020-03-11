@@ -31,6 +31,9 @@ $(document).ready(function() {
       }
     }
     control(userCategoriesFinal, userCityDays);
+    $.get("/itinerary").then(function(data){
+      window.location.replace("/choices.html")
+    })
   });
 
   async function control(userCategoriesFinal, userCityDays) {
