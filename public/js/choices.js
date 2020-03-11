@@ -1,6 +1,6 @@
 
 const display = (itineraryObjArr) => {
-
+    console.log("in choices.js");
     console.log(itineraryObjArr);
 
 };

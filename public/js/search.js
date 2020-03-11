@@ -1,10 +1,9 @@
-const choices = require('./choices');
+const choices = import('./choices');
 
 $(document).ready(function() {
   $("#submit").on("click", function() {
     event.preventDefault();
 
-    // Takes values from user city and days from input, creates object
     const userCityDays = {
       city: $("#cityName")
         .val()
@@ -13,29 +12,19 @@ $(document).ready(function() {
         .val()
         .trim()
     };
-    // Takes values from user categories, creates object
+    
     const userCategories = {
-<<<<<<< HEAD
-      bar: $("#nightlife").is(':checked'),
-
-=======
       bar: $("#nightlife").is(":checked"),
->>>>>>> master
-      // .trim(),
       art: $("#museums").is(":checked"),
-      // .trim(),
       restaurant: $("#food").is(":checked"),
-      // .trim(),
       hotel: $("#hotels").is(":checked"),
-      // .trim(),
       music: $("#music").is(":checked")
     };
 
-    //Puts only true category responses into an userCategories final Array
+    
     const userCategoriesArr = Object.entries(userCategories);
-    // Store user values
     const userCategoriesFinal = [];
-    // Loop through userCategoriesArr for true values and add to userCategoriesFinal
+   
     for (const [key, value] of userCategoriesArr) {
       if (value === true) {
         userCategoriesFinal.push(key);
@@ -49,10 +38,9 @@ $(document).ready(function() {
       const categories = await apiCategoriesArrayMaker(userCategoriesFinal);
       const coordinates = await getCoordinates(userCityDays);
       const apiData = await apiCall(categories, coordinates);
-      const itineraryOptions = await itineraryData(apiData, userCityDays)
+      const itineraryOptions = await itineraryData(apiData, userCityDays);
+      const itineraryObjArr = await getXidInfo(itineraryOptions);
 
-      console.log("xidInfoArr");
-      console.log(itineraryObjArr);
       choices.display(itineraryObjArr);
 
     } catch (error) {
@@ -61,7 +49,7 @@ $(document).ready(function() {
   }
 
   const apiCategoriesArrayMaker = userCategoriesFinal => {
-    console.log("33333333333");
+    
     const hotels = {
       name: "hotel",
       kinds: "accomodations"
@@ -117,7 +105,7 @@ $(document).ready(function() {
   };
 
   const apiCall = (categories, coordinates) => {
-    console.log(categories);
+  
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
@@ -128,20 +116,18 @@ $(document).ready(function() {
       ajaxCalls.push(call);
     });
     const data = Promise.all(ajaxCalls).then((data, err) => {
-      console.log("promise data");
+     
       return data;
     });
     return data;
   };
 
   const itineraryData = (apiData, userCityDays) => {
-    console.log("navigate data");
-    console.log(apiData, userCityDays.days);
+
     const xidArr = [];
-    //forEach data index, I want xid from first three
+  
     apiData.forEach(array => {
       for (var i = 0; i < userCityDays.days; i++) {
-        console.log("inside for loop");
         xidArr.push(array[i].xid);
       }
     });
