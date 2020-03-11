@@ -34,8 +34,11 @@ label {
 
 .welcomeMsg, .logoutBtn {
   color: lightgrey;
+  font-family: 'Poppins', sans-serif;
+  font-size: medium;
 }
 
 .button {
   background-color: aqua;
+  margin: auto 100%;
 }
