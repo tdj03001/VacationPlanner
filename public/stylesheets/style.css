@@ -3,6 +3,16 @@ form.login {
   margin-top: 50px;
 }
 
+.welcomeMsg {
+  margin-top: 80px;
+  margin-left: 30px;
+}
+
+.logoutBtn {
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+
 label {
   margin-right: 15px;
   margin-bottom: 15px;
