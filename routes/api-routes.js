@@ -58,6 +58,10 @@ module.exports = function (app) {
     }
   });
 
+  app.get("/itinerary", function(req, res){
+    res.sendFile(path.join(__dirname, "../public/choices.html"))
+  })
+
   app.get("/main", function (req, res) {
     res.sendFile(path.join(__dirname, "../public/main.html"));
   })
