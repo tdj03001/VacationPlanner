@@ -1,3 +1,7 @@
+$(document).ready(function(){
+  console.log(xidArr);
+  console.log('hello');
+})
 
 const display = (itineraryObjArr) => {
     console.log("in choices.js");
