@@ -1,5 +1,3 @@
-const choices = import('./choices');
-
 $(document).ready(function() {
   $("#submit").on("click", function() {
     event.preventDefault();
@@ -43,8 +41,8 @@ $(document).ready(function() {
       const apiData = await apiCall(categories, coordinates);
       const itineraryOptions = await itineraryData(apiData, userCityDays);
       const itineraryObjArr = await getXidInfo(itineraryOptions);
-
-      choices.display(itineraryObjArr);
+      
+      display(itineraryObjArr);
 
     } catch (error) {
       return error;
@@ -58,7 +56,7 @@ $(document).ready(function() {
       kinds: "accomodations"
     };
     const museums = {
-      name: "all",
+      name: "art",
       kinds: "museums"
     };
 
@@ -138,22 +136,23 @@ $(document).ready(function() {
   };
 
   const getXidInfo = xidArr => {
+    
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
-      console.log(array);
 
       $.ajax({
         url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
       }).then(response => {
         let xidDescripObj = {
+          xid: response.xid,
           name: response.name,
           address: response.address.road,
-          bio: response.wikipedia_extracts, //Tyler: this is an object that needs to be navitated to get the bio.  It will be bio.text to get the actualy bio blurb.
-          image: response.preview, //image of location.  comes back as undefined if not provided.
-          card: response.otm, // probably not usuable but its a card the api makes with wiki data if its included in the object
-          url: response.url //url is usually a booking site included in the hotel bookings.
+          bio: response.wikipedia_extracts, 
+          image: response.preview,
+          card: response.otm, 
+          url: response.url 
         };
 
         xidInfoArr.push(xidDescripObj);
