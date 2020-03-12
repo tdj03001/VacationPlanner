@@ -5,11 +5,8 @@ const display = (itineraryObjArr) => {
 
 };
 
-
-
-module.exports = {
-    display: display
-};
+//xid (id on card)and day need to be be attached to 
+//secrets
 
 
 
