@@ -3,6 +3,16 @@ form.login {
   margin-top: 50px;
 }
 
+.welcomeMsg {
+  margin-top: 80px;
+  margin-left: 30px;
+}
+
+.logoutBtn {
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+
 label {
   margin-right: 15px;
   margin-bottom: 15px;
@@ -24,8 +34,18 @@ label {
 
 .welcomeMsg, .logoutBtn {
   color: lightgrey;
+  font-family: 'Poppins', sans-serif;
+  font-size: medium;
 }
 
-.button {
+#submitwrapper {
+  text-align: center;
+}
+
+#submit {
   background-color: aqua;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  display: inline-block;
 }
