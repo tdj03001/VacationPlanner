@@ -64,4 +64,46 @@ label {
   display: flexbox;
 }
 
+#cards {
+  font-family: 'Poppins', sans-serif;
+  margin-left: 15px;
+  margin-right: 15px;
+}
 
+.card {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: slategrey;
+}
+
+.card-header-title {
+  color: white;
+}
+
+.fa-angle-down {
+  color: white;
+}
+
+.card-footer-item {
+  color: whitesmoke;
+  background-color: rgb(163, 162, 162);
+}
+
+.card-content {
+  color: lightgray;
+  background-color: steelblue;
+}
+/* 
+#save {
+  background-color: rgb(67, 201, 67);
+}
+
+#edit {
+  background-color: rgb(247, 247, 127);
+}
+
+#delete {
+  background-color: tomato;
+} */
