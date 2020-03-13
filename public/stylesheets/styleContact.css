@@ -9,6 +9,7 @@
 #contactLabel {
   color: rgb(57, 226, 226);
   font-family: 'Poppins', sans-serif;
+  
 }
 
 .divider {
@@ -58,8 +59,9 @@
 #submitbutton {
   
   background-color:  rgb(57, 226, 226);
-  color: gray;
-  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  /* color: black; */
+  font-weight: 500;
   margin-bottom: 40px;
 
 }
