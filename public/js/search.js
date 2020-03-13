@@ -17,7 +17,9 @@ $(document).ready(function () {
         .trim()
     };
 
+
     userCategories = {
+
       bar: $("#nightlife").is(":checked"),
       art: $("#museums").is(":checked"),
       restaurant: $("#food").is(":checked"),
@@ -26,14 +28,17 @@ $(document).ready(function () {
     };
 
 
+
     userCategoriesArr = Object.entries(userCategories);
     userCategoriesFinal = [];
+
 
     for (const [key, value] of userCategoriesArr) {
       if (value === true) {
         userCategoriesFinal.push(key);
       }
     }
+
    
     //   function gsQuery(answers){
     //     return new Promise(resolve => {
@@ -75,6 +80,7 @@ $(document).ready(function () {
   };
 
 
+
   async function control(userCategoriesFinal, userCityDays) {
     try {
       const categories = await apiCategoriesArrayMaker(userCategoriesFinal);
@@ -82,6 +88,7 @@ $(document).ready(function () {
       const apiData = await apiCall(categories, coordinates);
       const itineraryOptions = await itineraryData(apiData, userCityDays);
       const itineraryObjArr = await getXidInfo(itineraryOptions);
+
       console.log(itineraryObjArr);
       
       display(itineraryObjArr, userCityDays);
@@ -89,6 +96,8 @@ $(document).ready(function () {
       console.log("after .get in search.ljs");
       // return("complete");
 
+
+      display(itineraryObjArr);
     } catch (error) {
       return error;
     }
@@ -169,7 +178,6 @@ $(document).ready(function () {
   };
 
   const itineraryData = (apiData, userCityDays) => {
-
     const xidArr = [];
 
     apiData.forEach(array => {
@@ -185,7 +193,6 @@ $(document).ready(function () {
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
-
       $.ajax({
         url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
@@ -205,4 +212,6 @@ $(document).ready(function () {
     });
     return xidInfoArr;
   };
+
+  
 });

@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
 control(userCategoriesFinal, userCityDays);
