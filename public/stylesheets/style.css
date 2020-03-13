@@ -50,3 +50,7 @@ label {
   padding-bottom: 10px;
   display: inline-block;
 }
+
+#cards{
+  display:none;
+}
