@@ -7,10 +7,13 @@
 }
 
 .box {
-  margin: 40px;
+  margin: 50px;
   margin-top: 60px;
+  padding-left: 40px;
+  padding-right: 40px;
   border: 2px solid rgb(155, 153, 153);
   border-radius: 5px;
+  background-color: rgb(226, 226, 226);
 }
 
 .divider {
