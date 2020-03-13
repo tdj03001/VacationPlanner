@@ -1,8 +1,14 @@
-$(document).ready(function() {
-  $("#submit").on("click", function() {
+$(document).ready(function () {
+  let userCityDays; 
+  let userCategories;
+  let userCategoriesArr;
+  let userCategoriesFinal;
+
+  $("#submit").on("click", function () {
+
     event.preventDefault();
 
-    const userCityDays = {
+    userCityDays = {
       city: $("#cityName")
         .val()
         .trim(),
@@ -10,8 +16,9 @@ $(document).ready(function() {
         .val()
         .trim()
     };
-    
-    const userCategories = {
+
+    userCategories = {
+
       bar: $("#nightlife").is(":checked"),
       art: $("#museums").is(":checked"),
       restaurant: $("#food").is(":checked"),
@@ -19,17 +26,56 @@ $(document).ready(function() {
       music: $("#music").is(":checked")
     };
 
-    
-    const userCategoriesArr = Object.entries(userCategories);
-    const userCategoriesFinal = [];
-   
+    userCategoriesArr = Object.entries(userCategories);
+    userCategoriesFinal = [];
+
     for (const [key, value] of userCategoriesArr) {
       if (value === true) {
         userCategoriesFinal.push(key);
       }
     }
-    control(userCategoriesFinal, userCityDays);
+
+   
+    //   function gsQuery(answers){
+    //     return new Promise(resolve => {
+    //         gs(`/${answers.username}`, function(err, data) {
+    //             resolve(data);
+    //         })
+    //     })
+    // }
+    // main(userCategoriesFinal, userCityDays);
+    
+
+    // async function main(userCategoriesFinal, userCityDays) {
+    //   try {
+    //     await control(userCategoriesFinal, userCityDays);
+    //     // await get();
+
+    //   } catch (error) {
+
+    //   }
+
+    // }
+    // getRequest();
+
+    
+    // $.get("/itinerary").then(function(data){
+    //   // console.log("data")
+    //   // console.log(data)
+    //   // control(userCategoriesFinal, userCityDays);
+    //   window.location.replace("/choices.html")
+    // })
+    window.location.replace("/choices.html")
   });
+
+  const get = () => {
+    $.get("/itinerary").then(function (data) {
+      
+      window.location.replace("/choices.html")
+    })
+  };
+
+
 
   async function control(userCategoriesFinal, userCityDays) {
     try {
@@ -38,16 +84,22 @@ $(document).ready(function() {
       const apiData = await apiCall(categories, coordinates);
       const itineraryOptions = await itineraryData(apiData, userCityDays);
       const itineraryObjArr = await getXidInfo(itineraryOptions);
-      
-      display(itineraryObjArr);
 
+      console.log(itineraryObjArr);
+      
+      display(itineraryObjArr, userCityDays);
+      // loadChoiceshtml();
+      console.log("after .get in search.ljs");
+      // return("complete");
+
+
+      display(itineraryObjArr);
     } catch (error) {
       return error;
     }
   }
 
   const apiCategoriesArrayMaker = userCategoriesFinal => {
-    
     const hotels = {
       name: "hotel",
       kinds: "accomodations"
@@ -92,7 +144,7 @@ $(document).ready(function() {
     const coordinates = $.ajax({
       url: testURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       let coordinates = {
         latitude: response.lat,
         longitude: response.lon
@@ -103,7 +155,6 @@ $(document).ready(function() {
   };
 
   const apiCall = (categories, coordinates) => {
-  
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
@@ -114,16 +165,14 @@ $(document).ready(function() {
       ajaxCalls.push(call);
     });
     const data = Promise.all(ajaxCalls).then((data, err) => {
-     
       return data;
     });
     return data;
   };
 
   const itineraryData = (apiData, userCityDays) => {
-
     const xidArr = [];
-  
+
     apiData.forEach(array => {
       for (var i = 0; i < userCityDays.days; i++) {
         xidArr.push(array[i].xid);
@@ -133,11 +182,10 @@ $(document).ready(function() {
   };
 
   const getXidInfo = xidArr => {
-    
+
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
-
       $.ajax({
         url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
         method: "GET"
@@ -146,10 +194,10 @@ $(document).ready(function() {
           xid: response.xid,
           name: response.name,
           address: response.address.road,
-          bio: response.wikipedia_extracts, 
+          bio: response.wikipedia_extracts,
           image: response.preview,
-          card: response.otm, 
-          url: response.url 
+          card: response.otm,
+          url: response.url
         };
 
         xidInfoArr.push(xidDescripObj);
@@ -157,4 +205,6 @@ $(document).ready(function() {
     });
     return xidInfoArr;
   };
+
+  
 });

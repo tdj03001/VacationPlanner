@@ -1,0 +1,22 @@
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+.navbar-start {
+  font-family: 'Poppins', sans-serif;
+}
+
+.box {
+  
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+h2 {
+  font-size: xx-large;
+}
+
+.input {
+  display: inline-block;
+}

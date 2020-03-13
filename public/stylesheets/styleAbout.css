@@ -1,0 +1,25 @@
+.logoutBtn {
+  margin-bottom: 30px;
+  margin-left: 30px;
+  color: lightgrey;
+  font-family: 'Poppins', sans-serif;
+  font-size: medium;
+}
+
+.box {
+  margin: 40px;
+  margin-top: 60px;
+  border: 2px solid rgb(155, 153, 153);
+  border-radius: 5px;
+}
+
+.divider {
+  height: 3px;
+  background-color: #999;
+}
+
+body {
+  min-height: 600px;
+  background-image: url('../img/bridge.png');
+  background-size: cover;
+}

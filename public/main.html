@@ -7,24 +7,64 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-  <link type="favicon" href="img/favicon.jpg">
+  <link href="https://fonts.googleapis.com/css?family=Nunito|Poppins|Quicksand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="stylesheets/styleMain.css">
+  <link type="favicon" href="img/favicon.png">
   <title>Vacation Planner</title>
 </head>
 
 <body>
 
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <img src="./img/favicon.png" title="JNT Enterprises" width="46">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="main.html">
+          Home
+        </a>
+
+        <a class="navbar-item" href="about.html">
+          About
+        </a>
+
+        <a class="navbar-item" href="contact.html">
+          Contact
+        </a>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="logoutBtn button is-light" href="/logout">
+              Log out
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <section class="hero is-medium has-bg-img">
-    <h2 class="welcomeMsg">Welcome, <span class="member-name"></span><!DOCTYPE html>!</h2>
+    <h2 class="welcomeMsg">Welcome, <span class="member-name"></span>
+      <!DOCTYPE html>!</h2>
     <div class="hero-body">
       <div class="container">
-        <h1 class="title is-1">Trip Planner</h1>
+        <h1 class="title is-1">Vacation Planner</h1>
         <h2 class="subtitle">One less thing for your to-do list</h2>
       </div>
     </div>
-    <a class="logoutBtn" href="/logout">
-      Log out
-    </a>
   </section>
 
   <div class="box">
@@ -83,7 +123,7 @@
 
     <div class="field-body">
       <div class="field">
-        <div class="control">
+        <div class="control" id="submitwrapper">
           <button class="button" id="submit">
             Submit!
           </button>
@@ -103,6 +143,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script type="text/javascript" src="js/choices.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
+  <script type="text/javascript" src="js/choices.js"></script>
   <script type="text/javascript" src="js/members.js"></script>
 
 </body>
