@@ -1,0 +1,67 @@
+form.signup,
+form.login {
+  margin-top: 50px;
+}
+
+.welcomeMsg {
+  margin-top: 80px;
+  margin-left: 30px;
+}
+
+.logoutBtn {
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+
+.box {
+  background-color: whitesmoke;
+}
+
+label {
+  margin-right: 15px;
+  margin-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#days {
+  width: 55%;
+}
+
+.title {
+  color:  rgb(57, 226, 226);
+}
+
+.subtitle {
+  color: white;
+  font-style: italic;
+}
+
+.has-bg-img {
+  background-image: url('../img/cityskyline.png');
+  background-size: cover;
+}
+
+.welcomeMsg, .logoutBtn {
+  color: lightgrey;
+  font-family: 'Poppins', sans-serif;
+  font-size: medium;
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+#submitwrapper {
+  text-align: center;
+}
+
+#submit {
+  font-family: 'Poppins', sans-serif;
+  background-color:  rgb(57, 226, 226);
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  display: flexbox;
+}
+
+

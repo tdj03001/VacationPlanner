@@ -1,0 +1,81 @@
+.logoutBtn {
+  margin-bottom: 30px;
+  margin-left: 30px;
+  color: lightgrey;
+  font-family: 'Poppins', sans-serif;
+  font-size: medium;
+}
+
+/* h4 {
+  color: teal;
+  font-family: 'Poppins', sans-serif;
+} */
+
+#contactLabel {
+  color: rgb(57, 226, 226);
+  font-family: 'Poppins', sans-serif;
+}
+
+.divider {
+  height: 3px;
+  background-color: #999;
+}
+
+#namelabel {
+  margin-top: 20px;
+  font-weight: 600;  
+  font-family: 'Poppins', sans-serif;
+}
+
+#namefield {
+  margin-top: -10px;
+  margin-bottom: 25px;
+  width: 400px;
+}
+
+#emailLabel {
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+#emailfield {
+  margin-top: -10px;
+  margin-bottom: 25px;
+  width: 400px;
+}
+
+#messageLabel {
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+#messagefield {
+  margin-top: 3px;
+  margin-bottom: 25px;
+  width: 400px;
+  height: 100px;
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+#submitbutton {
+  
+  background-color:  rgb(57, 226, 226);
+  color: rgb(156, 156, 156);
+  margin-bottom: 40px;
+
+}
+
+body {
+  min-height: 600px;
+  background-image: url('../img/grayscaleSkyline.png');
+  background-size: cover;
+}
+
+.container-fluid {
+  margin: 20px;
+}
+
+
