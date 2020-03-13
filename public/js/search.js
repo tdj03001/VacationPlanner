@@ -1,8 +1,14 @@
-$(document).ready(function() {
-  $("#submit").on("click", function() {
+$(document).ready(function () {
+  let userCityDays; 
+  let userCategories;
+  let userCategoriesArr;
+  let userCategoriesFinal;
+
+  $("#submit").on("click", function () {
+
     event.preventDefault();
 
-    const userCityDays = {
+    userCityDays = {
       city: $("#cityName")
         .val()
         .trim(),
@@ -10,8 +16,8 @@ $(document).ready(function() {
         .val()
         .trim()
     };
-    
-    const userCategories = {
+
+    userCategories = {
       bar: $("#nightlife").is(":checked"),
       art: $("#museums").is(":checked"),
       restaurant: $("#food").is(":checked"),
@@ -19,20 +25,55 @@ $(document).ready(function() {
       music: $("#music").is(":checked")
     };
 
-    
-    const userCategoriesArr = Object.entries(userCategories);
-    const userCategoriesFinal = [];
-   
+
+    userCategoriesArr = Object.entries(userCategories);
+    userCategoriesFinal = [];
+
     for (const [key, value] of userCategoriesArr) {
       if (value === true) {
         userCategoriesFinal.push(key);
       }
     }
-    control(userCategoriesFinal, userCityDays);
-    $.get("/itinerary").then(function(data){
+   
+    //   function gsQuery(answers){
+    //     return new Promise(resolve => {
+    //         gs(`/${answers.username}`, function(err, data) {
+    //             resolve(data);
+    //         })
+    //     })
+    // }
+    // main(userCategoriesFinal, userCityDays);
+    
+
+    // async function main(userCategoriesFinal, userCityDays) {
+    //   try {
+    //     await control(userCategoriesFinal, userCityDays);
+    //     // await get();
+
+    //   } catch (error) {
+
+    //   }
+
+    // }
+    // getRequest();
+
+    
+    // $.get("/itinerary").then(function(data){
+    //   // console.log("data")
+    //   // console.log(data)
+    //   // control(userCategoriesFinal, userCityDays);
+    //   window.location.replace("/choices.html")
+    // })
+    window.location.replace("/choices.html")
+  });
+
+  const get = () => {
+    $.get("/itinerary").then(function (data) {
+      
       window.location.replace("/choices.html")
     })
-  });
+  };
+
 
   async function control(userCategoriesFinal, userCityDays) {
     try {
@@ -41,8 +82,12 @@ $(document).ready(function() {
       const apiData = await apiCall(categories, coordinates);
       const itineraryOptions = await itineraryData(apiData, userCityDays);
       const itineraryObjArr = await getXidInfo(itineraryOptions);
+      console.log(itineraryObjArr);
       
-      display(itineraryObjArr);
+      display(itineraryObjArr, userCityDays);
+      // loadChoiceshtml();
+      console.log("after .get in search.ljs");
+      // return("complete");
 
     } catch (error) {
       return error;
@@ -50,7 +95,7 @@ $(document).ready(function() {
   }
 
   const apiCategoriesArrayMaker = userCategoriesFinal => {
-    
+
     const hotels = {
       name: "hotel",
       kinds: "accomodations"
@@ -95,7 +140,7 @@ $(document).ready(function() {
     const coordinates = $.ajax({
       url: testURL,
       method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
       let coordinates = {
         latitude: response.lat,
         longitude: response.lon
@@ -106,7 +151,7 @@ $(document).ready(function() {
   };
 
   const apiCall = (categories, coordinates) => {
-  
+
     const ajaxCalls = [];
 
     categories.forEach((data, index) => {
@@ -117,7 +162,7 @@ $(document).ready(function() {
       ajaxCalls.push(call);
     });
     const data = Promise.all(ajaxCalls).then((data, err) => {
-     
+
       return data;
     });
     return data;
@@ -126,7 +171,7 @@ $(document).ready(function() {
   const itineraryData = (apiData, userCityDays) => {
 
     const xidArr = [];
-  
+
     apiData.forEach(array => {
       for (var i = 0; i < userCityDays.days; i++) {
         xidArr.push(array[i].xid);
@@ -136,7 +181,7 @@ $(document).ready(function() {
   };
 
   const getXidInfo = xidArr => {
-    
+
     let xidInfoArr = [];
 
     xidArr.forEach(array => {
@@ -149,10 +194,10 @@ $(document).ready(function() {
           xid: response.xid,
           name: response.name,
           address: response.address.road,
-          bio: response.wikipedia_extracts, 
+          bio: response.wikipedia_extracts,
           image: response.preview,
-          card: response.otm, 
-          url: response.url 
+          card: response.otm,
+          url: response.url
         };
 
         xidInfoArr.push(xidDescripObj);
