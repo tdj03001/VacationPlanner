@@ -121,7 +121,7 @@ const itineraryData = (apiData, userCityDays) => {
 };
 
 const getXidInfo = xidArr => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
     let xidInfoArr = [];
     xidArr.forEach(array => {
@@ -139,9 +139,9 @@ const getXidInfo = xidArr => {
           url: response.url
         };
         xidInfoArr.push(xidDescripObj);
-        if (xidInfoArr.length === xidArr.length){
+        if (xidInfoArr.length === xidArr.length) {
           resolve(xidInfoArr);
-        } 
+        }
       });
     });
 
@@ -155,7 +155,8 @@ function display(itineraryObjArr, userCityDays) {
   console.log(itineraryObjArr);
 
   for (let i = 0; i < itineraryObjArr.length; i++) {
-    $("#cards").append(`<div class="card">
+    $("#cards").append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
+    <div class="card">
       <header class="card-header">
         <p class="card-header-title">
           ${itineraryObjArr[i].name}
@@ -175,9 +176,9 @@ function display(itineraryObjArr, userCityDays) {
         </div>
       </div>
       <footer class="card-footer">
-        <a href="#" class="card-footer-item">Save</a>
-        <a href="#" class="card-footer-item">Edit</a>
-        <a href="#" class="card-footer-item">Delete</a>
+        <a href="#" class="card-footer-item" id="save">Save</a>
+        <a href="#" class="card-footer-item" id="edit">Edit</a>
+        <a href="#" class="card-footer-item" id="delete">Delete</a>
       </footer>
     </div>`);
   }
