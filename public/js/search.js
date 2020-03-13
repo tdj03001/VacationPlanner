@@ -134,7 +134,7 @@ const getXidInfo = xidArr => {
           name: response.name,
           address: response.address.road,
           bio: response.wikipedia_extracts,
-          image: response.preview,
+          image: response.image,
           card: response.otm,
           url: response.url
         };
@@ -152,46 +152,33 @@ const getXidInfo = xidArr => {
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
   console.log("console.log of just itineraryObjArr");
-  console.log(itineraryObjArr.length);
-  console.log(itineraryObjArr[0].xid);
+  console.log(itineraryObjArr);
 
   for (let i = 0; i < itineraryObjArr.length; i++) {
-    
-    console.log('hi');
-    
+    $("#cards").append(`<div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          ${itineraryObjArr[i].name}
+        </p>
+        <a href="#" class="card-header-icon" aria-label="more options">
+          <span class="icon">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </a>
+      </header>
+      <div class="card-content">
+        <div class="content">
+         Address: ${itineraryObjArr[i].address} <br>
+         Bio: ${itineraryObjArr[i].bio} <br>
+         Image: ${itineraryObjArr[i].image} <br>
+         url: ${itineraryObjArr[i].url} <br>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item">Save</a>
+        <a href="#" class="card-footer-item">Edit</a>
+        <a href="#" class="card-footer-item">Delete</a>
+      </footer>
+    </div>`);
   }
-
-  // const test = itineraryObjArr.forEach(function (element, index) {
-  //   return element[0];
-  // });
-
-  // console.log(test)
-
-  // for (let i = 0; i < userCityDays.days; i++) {
-  //   $("#cards").append(`<div class="card">
-  //     <header class="card-header">
-  //       <p class="card-header-title">
-  //         ${"name"}
-  //       </p>
-  //       <a href="#" class="card-header-icon" aria-label="more options">
-  //         <span class="icon">
-  //           <i class="fas fa-angle-down" aria-hidden="true"></i>
-  //         </span>
-  //       </a>
-  //     </header>
-  //     <div class="card-content">
-  //       <div class="content">
-  //         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-  //         <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-  //         <br>
-  //         <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-  //       </div>
-  //     </div>
-  //     <footer class="card-footer">
-  //       <a href="#" class="card-footer-item">Save</a>
-  //       <a href="#" class="card-footer-item">Edit</a>
-  //       <a href="#" class="card-footer-item">Delete</a>
-  //     </footer>
-  //   </div>`);
-  // }
 };
