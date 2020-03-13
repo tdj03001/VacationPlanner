@@ -13,13 +13,22 @@ form.login {
   margin-left: 30px;
 }
 
+.box {
+  background-color: whitesmoke;
+}
+
 label {
   margin-right: 15px;
   margin-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+#days {
+  width: 55%;
 }
 
 .title {
-  color: aqua;
+  color:  rgb(57, 226, 226);
 }
 
 .subtitle {
@@ -38,15 +47,21 @@ label {
   font-size: medium;
 }
 
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
 #submitwrapper {
   text-align: center;
 }
 
 #submit {
   font-family: 'Poppins', sans-serif;
-  background-color: aqua;
+  background-color:  rgb(57, 226, 226);
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 10px;
-  display: inline-block;
+  display: flexbox;
 }
+
+
