@@ -1,9 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
   let userCityDays;
   let userCategories;
   let userCategoriesArr;
   let userCategoriesFinal;
-  $("#submit").on("click", function() {
+  $("#submit").on("click", function () {
     $(".box").hide();
     $("#cards").show();
     event.preventDefault();
@@ -35,15 +35,15 @@ $(document).ready(function() {
 });
 async function control(userCategoriesFinal, userCityDays) {
   try {
-    debugger;
+    // debugger;
     const categories = await apiCategoriesArrayMaker(userCategoriesFinal);
     const coordinates = await getCoordinates(userCityDays);
     const apiData = await apiCall(categories, coordinates);
     const itineraryOptions = await itineraryData(apiData, userCityDays);
     const itineraryObjArr = await getXidInfo(itineraryOptions);
-    window.itinerary123 = "hello";
-    console.log(window.itinerary123);
-    // display(itineraryObjArr, userCityDays);
+    // window.itinerary123 = "hello";
+    console.log(itineraryObjArr.length);
+    display(itineraryObjArr, userCityDays);
   } catch (error) {
     console.log(error);
     return error;
@@ -87,7 +87,7 @@ const getCoordinates = (userCityDays, apiCategoriesArrayMaker) => {
   const coordinates = $.ajax({
     url: testURL,
     method: "GET"
-  }).then(function(response) {
+  }).then(function (response) {
     let coordinates = {
       latitude: response.lat,
       longitude: response.lon
@@ -119,53 +119,79 @@ const itineraryData = (apiData, userCityDays) => {
   });
   return xidArr;
 };
+
 const getXidInfo = xidArr => {
-  let xidInfoArr = [];
-  xidArr.forEach(array => {
-    $.ajax({
-      url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
-      method: "GET"
-    }).then(response => {
-      let xidDescripObj = {
-        xid: response.xid,
-        name: response.name,
-        address: response.address.road,
-        bio: response.wikipedia_extracts,
-        image: response.preview,
-        card: response.otm,
-        url: response.url
-      };
-      xidInfoArr.push(xidDescripObj);
+  return new Promise ((resolve, reject) => {
+
+    let xidInfoArr = [];
+    xidArr.forEach(array => {
+      $.ajax({
+        url: `https://api.opentripmap.com/0.1/en/places/xid/${array}?apikey=5ae2e3f221c38a28845f05b6e737a1bd4ae45f41add49b683ebf769d`,
+        method: "GET"
+      }).then(response => {
+        let xidDescripObj = {
+          xid: response.xid,
+          name: response.name,
+          address: response.address.road,
+          bio: response.wikipedia_extracts,
+          image: response.preview,
+          card: response.otm,
+          url: response.url
+        };
+        xidInfoArr.push(xidDescripObj);
+        if (xidInfoArr.length === xidArr.length){
+          resolve(xidInfoArr);
+        } 
+      });
     });
-  });
+
+  })
+};
 
 
-  //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
-  for (let i = 0; i < 1; i++) {
-    $("#cards").append(`<div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          Component
-        </p>
-        <a href="#" class="card-header-icon" aria-label="more options">
-          <span class="icon">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </a>
-      </header>
-      <div class="card-content">
-        <div class="content">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-          <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-          <br>
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-        </div>
-      </div>
-      <footer class="card-footer">
-        <a href="#" class="card-footer-item">Save</a>
-        <a href="#" class="card-footer-item">Edit</a>
-        <a href="#" class="card-footer-item">Delete</a>
-      </footer>
-    </div>`);
+//////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
+function display(itineraryObjArr, userCityDays) {
+  console.log("console.log of just itineraryObjArr");
+  console.log(itineraryObjArr.length);
+  console.log(itineraryObjArr[0].xid);
+
+  for (let i = 0; i < itineraryObjArr.length; i++) {
+    
+    console.log('hi');
+    
   }
+
+  // const test = itineraryObjArr.forEach(function (element, index) {
+  //   return element[0];
+  // });
+
+  // console.log(test)
+
+  // for (let i = 0; i < userCityDays.days; i++) {
+  //   $("#cards").append(`<div class="card">
+  //     <header class="card-header">
+  //       <p class="card-header-title">
+  //         ${"name"}
+  //       </p>
+  //       <a href="#" class="card-header-icon" aria-label="more options">
+  //         <span class="icon">
+  //           <i class="fas fa-angle-down" aria-hidden="true"></i>
+  //         </span>
+  //       </a>
+  //     </header>
+  //     <div class="card-content">
+  //       <div class="content">
+  //         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+  //         <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+  //         <br>
+  //         <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+  //       </div>
+  //     </div>
+  //     <footer class="card-footer">
+  //       <a href="#" class="card-footer-item">Save</a>
+  //       <a href="#" class="card-footer-item">Edit</a>
+  //       <a href="#" class="card-footer-item">Delete</a>
+  //     </footer>
+  //   </div>`);
+  // }
 };
