@@ -6,11 +6,6 @@
   font-size: medium;
 }
 
-/* h4 {
-  color: teal;
-  font-family: 'Poppins', sans-serif;
-} */
-
 #contactLabel {
   color: rgb(57, 226, 226);
   font-family: 'Poppins', sans-serif;
@@ -63,7 +58,8 @@
 #submitbutton {
   
   background-color:  rgb(57, 226, 226);
-  color: rgb(156, 156, 156);
+  color: gray;
+  font-weight: 600;
   margin-bottom: 40px;
 
 }
