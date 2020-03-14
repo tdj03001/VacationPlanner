@@ -29,11 +29,13 @@ label {
 
 .title {
   color:  rgb(57, 226, 226);
+  margin-top: -60px;
 }
 
 .subtitle {
   color: white;
   font-style: italic;
+  margin-bottom: 60px;
 }
 
 .has-bg-img {
