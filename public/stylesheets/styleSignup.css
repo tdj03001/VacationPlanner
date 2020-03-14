@@ -26,6 +26,10 @@ h2 {
   background-color:  rgb(57, 226, 226);
 }
 
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
 .input {
   display: inline-block;
 }
