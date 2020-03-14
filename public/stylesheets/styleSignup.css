@@ -7,14 +7,23 @@ form.login {
   font-family: 'Poppins', sans-serif;
 }
 
+body {
+  background-color: rgb(226, 226, 226);
+}
+
 .box {
-  
+  margin-top:20px;
+  padding-bottom: 20px;
   margin-left: 20%;
   margin-right: 20%;
 }
 
 h2 {
   font-size: xx-large;
+}
+
+#signupBtn {
+  background-color:  rgb(57, 226, 226);
 }
 
 .input {
