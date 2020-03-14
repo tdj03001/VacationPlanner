@@ -66,6 +66,10 @@ label {
   display: flexbox;
 }
 
+div#day {
+  margin-left: 15px;
+}
+
 #cards {
   font-family: 'Poppins', sans-serif;
   margin-left: 15px;
@@ -99,15 +103,3 @@ label {
   color: lightgray;
   background-color: steelblue;
 }
-/* 
-#save {
-  background-color: rgb(67, 201, 67);
-}
-
-#edit {
-  background-color: rgb(247, 247, 127);
-}
-
-#delete {
-  background-color: tomato;
-} */

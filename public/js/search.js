@@ -41,7 +41,7 @@ async function control(userCategoriesFinal, userCityDays) {
     const apiData = await apiCall(categories, coordinates);
     const itineraryOptions = await itineraryData(apiData, userCityDays);
     const itineraryObjArr = await getXidInfo(itineraryOptions);
-  
+
     display(itineraryObjArr, userCityDays);
 
   } catch (error) {
@@ -152,17 +152,17 @@ const getXidInfo = xidArr => {
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
- 
-  for (let i = 0; i < userCityDays.days; i++) {
-    $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
+
+  for (let i = 1; i < userCityDays.days; i++) {
+    $("#itinerary").append(`<div id="day-${i}" style="margin-left:15px; margin-top:10px; font-style:italic">Day ${i}</div>`);
 
   };
 
   let j = 0;
   for (let i = 0; i < itineraryObjArr.length; i++) {
-   
+
     let days = parseInt(userCityDays.days);
-   
+
     if (j < days) {
       $(`#day-${j}`).append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
 <div class="card">
@@ -188,7 +188,7 @@ function display(itineraryObjArr, userCityDays) {
     </footer>
   </div>`);
       j++;
-      
+
     } else if (j = days) {
       j = 0
     };
