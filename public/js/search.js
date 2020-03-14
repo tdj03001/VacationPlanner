@@ -139,6 +139,7 @@ const getXidInfo = xidArr => {
           url: response.url
         };
         xidInfoArr.push(xidDescripObj);
+        console.log(xidDescripObj.card)
         if (xidInfoArr.length === xidArr.length) {
           resolve(xidInfoArr);
         }
@@ -177,11 +178,8 @@ function display(itineraryObjArr, userCityDays) {
     </header>
     <div class="card-content">
       <div class="content">
-      XID: ${itineraryObjArr[i].xid} <br>
        Address: ${itineraryObjArr[i].address} <br>
-       Bio: ${itineraryObjArr[i].bio} <br>
-       Image: <img src="${itineraryObjArr[i].image}"> <br>
-       url: <a href="${itineraryObjArr[i].url}"></a> <br>
+       View on Open Trip Map: ${itineraryObjArr[i].card} <br>
       </div>
     </div>
     <footer class="card-footer">
