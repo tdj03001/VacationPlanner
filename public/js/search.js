@@ -152,7 +152,6 @@ const getXidInfo = xidArr => {
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
-  console.log(itineraryObjArr);
  
   for (let i = 0; i < userCityDays.days; i++) {
     $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
