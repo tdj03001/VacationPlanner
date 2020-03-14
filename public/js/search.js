@@ -139,6 +139,7 @@ const getXidInfo = xidArr => {
           url: response.url
         };
         xidInfoArr.push(xidDescripObj);
+        console.log(xidDescripObj.card)
         if (xidInfoArr.length === xidArr.length) {
           resolve(xidInfoArr);
         }
@@ -151,8 +152,8 @@ const getXidInfo = xidArr => {
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
+  console.log(itineraryObjArr);
  
-
   for (let i = 0; i < userCityDays.days; i++) {
     $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
 
@@ -164,7 +165,8 @@ function display(itineraryObjArr, userCityDays) {
     let days = parseInt(userCityDays.days);
    
     if (j < days) {
-      $(`#day-${j}`).append(`<div class="card">
+      $(`#day-${j}`).append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
+<div class="card">
     <header class="card-header">
       <p class="card-header-title">
         ${itineraryObjArr[i].name}
@@ -177,11 +179,8 @@ function display(itineraryObjArr, userCityDays) {
     </header>
     <div class="card-content">
       <div class="content">
-      XID: ${itineraryObjArr[i].xid} <br>
        Address: ${itineraryObjArr[i].address} <br>
-       Bio: ${itineraryObjArr[i].bio} <br>
-       Image: <img src="${itineraryObjArr[i].image}"> <br>
-       url: <a href="${itineraryObjArr[i].url}"></a> <br>
+       View on Open Trip Map: ${itineraryObjArr[i].card} <br>
       </div>
     </div>
     <footer class="card-footer">
@@ -196,3 +195,4 @@ function display(itineraryObjArr, userCityDays) {
     };
   };
 };
+
