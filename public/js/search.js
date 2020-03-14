@@ -152,7 +152,6 @@ const getXidInfo = xidArr => {
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
  
-
   for (let i = 0; i < userCityDays.days; i++) {
     $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
 
@@ -164,7 +163,8 @@ function display(itineraryObjArr, userCityDays) {
     let days = parseInt(userCityDays.days);
    
     if (j < days) {
-      $(`#day-${j}`).append(`<div class="card">
+      $(`#day-${j}`).append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
+<div class="card">
     <header class="card-header">
       <p class="card-header-title">
         ${itineraryObjArr[i].name}
@@ -196,3 +196,4 @@ function display(itineraryObjArr, userCityDays) {
     };
   };
 };
+
