@@ -26,6 +26,10 @@ h2 {
   font-size: xx-large;
 }
 
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
 .input {
   display: inline-block;
 }
