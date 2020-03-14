@@ -41,15 +41,15 @@ async function control(userCategoriesFinal, userCityDays) {
     const apiData = await apiCall(categories, coordinates);
     const itineraryOptions = await itineraryData(apiData, userCityDays);
     const itineraryObjArr = await getXidInfo(itineraryOptions);
-    // window.itinerary123 = "hello";
-    console.log(itineraryObjArr.length);
+  
     display(itineraryObjArr, userCityDays);
+
   } catch (error) {
     console.log(error);
     return error;
   }
 }
-// control(userCategoriesFinal, userCityDays)
+
 const apiCategoriesArrayMaker = userCategoriesFinal => {
   const hotels = {
     name: "hotel",
@@ -151,35 +151,49 @@ const getXidInfo = xidArr => {
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
-  console.log("console.log of just itineraryObjArr");
-  console.log(itineraryObjArr);
+ 
+  for (let i = 0; i < userCityDays.days; i++) {
+    $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
 
+  };
+
+  let j = 0;
   for (let i = 0; i < itineraryObjArr.length; i++) {
-    $("#cards").append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">
-          ${itineraryObjArr[i].name}
-        </p>
-        <a href="#" class="card-header-icon" aria-label="more options">
-          <span class="icon">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </a>
-      </header>
-      <div class="card-content">
-        <div class="content">
-         Address: ${itineraryObjArr[i].address} <br>
-         Bio: ${itineraryObjArr[i].bio} <br>
-         Image: ${itineraryObjArr[i].image} <br>
-         url: ${itineraryObjArr[i].url} <br>
-        </div>
+   
+    let days = parseInt(userCityDays.days);
+   
+    if (j < days) {
+      $(`#day-${j}`).append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
+<div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        ${itineraryObjArr[i].name}
+      </p>
+      <a href="#" class="card-header-icon" aria-label="more options">
+        <span class="icon">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+      </a>
+    </header>
+    <div class="card-content">
+      <div class="content">
+      XID: ${itineraryObjArr[i].xid} <br>
+       Address: ${itineraryObjArr[i].address} <br>
+       Bio: ${itineraryObjArr[i].bio} <br>
+       Image: <img src="${itineraryObjArr[i].image}"> <br>
+       url: <a href="${itineraryObjArr[i].url}"></a> <br>
       </div>
-      <footer class="card-footer">
-        <a href="#" class="card-footer-item" id="save">Save</a>
-        <a href="#" class="card-footer-item" id="edit">Edit</a>
-        <a href="#" class="card-footer-item" id="delete">Delete</a>
-      </footer>
-    </div>`);
-  }
+    </div>
+    <footer class="card-footer">
+      <a href="#" class="card-footer-item">Save</a>
+      <a href="#" class="card-footer-item">Delete</a>
+    </footer>
+  </div>`);
+      j++;
+      
+    } else if (j = days) {
+      j = 0
+    };
+  };
 };
+
