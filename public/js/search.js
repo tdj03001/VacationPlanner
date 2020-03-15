@@ -1,9 +1,9 @@
-$(document).ready(function () {
+$(document).ready(function() {
   let userCityDays;
   let userCategories;
   let userCategoriesArr;
   let userCategoriesFinal;
-  $("#submit").on("click", function () {
+  $("#submit").on("click", function() {
     $(".box").hide();
     $("#cards").show();
     event.preventDefault();
@@ -33,6 +33,7 @@ $(document).ready(function () {
   });
   return userCategoriesFinal, userCityDays;
 });
+
 async function control(userCategoriesFinal, userCityDays) {
   try {
     // debugger;
@@ -43,7 +44,6 @@ async function control(userCategoriesFinal, userCityDays) {
     const itineraryObjArr = await getXidInfo(itineraryOptions);
 
     display(itineraryObjArr, userCityDays);
-
   } catch (error) {
     console.log(error);
     return error;
@@ -87,7 +87,7 @@ const getCoordinates = (userCityDays, apiCategoriesArrayMaker) => {
   const coordinates = $.ajax({
     url: testURL,
     method: "GET"
-  }).then(function (response) {
+  }).then(function(response) {
     let coordinates = {
       latitude: response.lat,
       longitude: response.lon
@@ -122,7 +122,6 @@ const itineraryData = (apiData, userCityDays) => {
 
 const getXidInfo = xidArr => {
   return new Promise((resolve, reject) => {
-
     let xidInfoArr = [];
     xidArr.forEach(array => {
       $.ajax({
@@ -139,59 +138,60 @@ const getXidInfo = xidArr => {
           url: response.url
         };
         xidInfoArr.push(xidDescripObj);
-        console.log(xidDescripObj.card)
         if (xidInfoArr.length === xidArr.length) {
           resolve(xidInfoArr);
         }
       });
     });
-
-  })
+  });
 };
 
+const saveItem = data => {
+  $.post("/api/itinerary_create", data, function() {});
+};
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
-
-  for (let i = 1; i < userCityDays.days; i++) {
-    $("#itinerary").append(`<div id="day-${i}" style="margin-left:15px; margin-top:10px; font-style:italic">Day ${i}</div>`);
-
-  };
+  for (let i = 0; i < userCityDays.days; i++) {
+    $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
+  }
 
   let j = 0;
   for (let i = 0; i < itineraryObjArr.length; i++) {
+    console.log(itineraryObjArr);
 
     let days = parseInt(userCityDays.days);
 
     if (j < days) {
-      $(`#day-${j}`).append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
+      $(`#day-${j}`)
+        .append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
 <div class="card">
     <header class="card-header">
       <p class="card-header-title">
         ${itineraryObjArr[i].name}
       </p>
       <a href="#" class="card-header-icon" aria-label="more options">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
+        
       </a>
     </header>
     <div class="card-content">
       <div class="content">
        Address: ${itineraryObjArr[i].address} <br>
-       View on Open Trip Map: ${itineraryObjArr[i].card} <br>
+       OTM: ${itineraryObjArr[i].card}
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">Save</a>
-      <a href="#" class="card-footer-item">Delete</a>
+      <a class="card-footer-item save" id="${itineraryObjArr[i].xid}">Save</a>
+      <a class="card-footer-item del" id="${itineraryObjArr[i].xid}">Delete</a>
     </footer>
   </div>`);
       j++;
-
-    } else if (j = days) {
-      j = 0
-    };
-  };
-};
-
+    } else if ((j = days)) {
+      j = 0;
+    }
+  }
+  $(".save").on("click", function() {
+    event.preventDefault();
+    saveItem({ xid: this.id });
+  });
+}
