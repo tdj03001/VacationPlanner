@@ -1,9 +1,9 @@
-$(document).ready(function() {
+$(document).ready(function () {
   let userCityDays;
   let userCategories;
   let userCategoriesArr;
   let userCategoriesFinal;
-  $("#submit").on("click", function() {
+  $("#submit").on("click", function () {
     $(".box").hide();
     $("#cards").show();
     event.preventDefault();
@@ -87,7 +87,7 @@ const getCoordinates = (userCityDays, apiCategoriesArrayMaker) => {
   const coordinates = $.ajax({
     url: testURL,
     method: "GET"
-  }).then(function(response) {
+  }).then(function (response) {
     let coordinates = {
       latitude: response.lat,
       longitude: response.lon
@@ -147,12 +147,12 @@ const getXidInfo = xidArr => {
 };
 
 const saveItem = data => {
-  $.post("/api/itinerary_create", data, function() {});
+  $.post("/api/itinerary_create", data, function () { });
 };
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
-  for (let i = 0; i < userCityDays.days; i++) {
+  for (let i = 1; i < userCityDays.days; i++) {
     $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
   }
 
@@ -190,7 +190,7 @@ function display(itineraryObjArr, userCityDays) {
       j = 0;
     }
   }
-  $(".save").on("click", function() {
+  $(".save").on("click", function () {
     event.preventDefault();
     saveItem({ xid: this.id });
   });
