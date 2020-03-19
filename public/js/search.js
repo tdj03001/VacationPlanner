@@ -113,7 +113,7 @@ const apiCall = (categories, coordinates) => {
 const itineraryData = (apiData, userCityDays) => {
   const xidArr = [];
   apiData.forEach(array => {
-    for (var i = 0; i < userCityDays.days; i++) {
+    for (var i = 0; i <= userCityDays.days; i++) {
       xidArr.push(array[i].xid);
     }
   });
@@ -152,17 +152,18 @@ const saveItem = data => {
 
 //////////////////////DISPLAY ITINERARY FUNCTIONS//////////////////////////
 function display(itineraryObjArr, userCityDays) {
-  for (let i = 1; i < userCityDays.days; i++) {
-    $("#itinerary").append(`<div id="day-${i}">Day ${i}</div>`);
+  for (let i = 1; i <= parseInt(userCityDays.days); i++) {
+    $("#itinerary").append(`<br><div id="day-${i}"><p style="color:black;font-size:30px;">Day ${i}</p></div>`);
   }
 
   let j = 0;
-  for (let i = 0; i < itineraryObjArr.length; i++) {
+  for (let i = 0; i <= itineraryObjArr.length; i++) {
     console.log(itineraryObjArr);
+    console.log(typeof userCityDays.days);
 
     let days = parseInt(userCityDays.days);
 
-    if (j < days) {
+    if (j <= days) {
       $(`#day-${j}`)
         .append(`<br><br><style> body {background-color: rgb(216, 221, 224);}</style>
 <div class="card">
