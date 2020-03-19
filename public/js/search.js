@@ -156,7 +156,7 @@ function display(itineraryObjArr, userCityDays) {
     $("#itinerary").append(`<br><div id="day-${i}"><p style="color:black;font-size:30px;">Day ${i}</p></div>`);
   }
 
-  let j = 0;
+  let j = 1;
   for (let i = 0; i <= itineraryObjArr.length; i++) {
     console.log(itineraryObjArr);
     console.log(typeof userCityDays.days);
@@ -188,7 +188,7 @@ function display(itineraryObjArr, userCityDays) {
   </div>`);
       j++;
     } else if ((j = days)) {
-      j = 0;
+      j = 1;
     }
   }
   $(".save").on("click", function () {
