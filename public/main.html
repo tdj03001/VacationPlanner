@@ -10,7 +10,8 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito|Poppins|Quicksand&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="stylesheets/styleMain.css">
   <link type="favicon" href="img/favicon.png">
-  <title>Vacationer</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+  <title>Weekender</title>
 </head>
 
 <body>
@@ -60,13 +61,54 @@
     <h2 class="welcomeMsg">Welcome, <span class="member-name"></span>
       <!DOCTYPE html>!</h2>
     <div class="hero-body">
-      <h1 class="title is-1">Vacationer</h1>
+      <h1 class="title is-1">Weekender</h1>
       <h2 class="subtitle">One less thing for your to-do list</h2>
     </div>
   </section>
 
   <div class="box">
+
     <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">Which city would you like to visit?</label>
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="city" value="Philadelphia" checked="checked">
+              Philadelphia
+            </label>
+            <label class="radio">
+              <input type="radio" name="city" value="Boston" checked="checked">
+              Boston
+            </label>
+            <label class="radio">
+              <input type="radio" name="city" value="New York City" checked="checked">
+              New York City
+            </label>
+            <label class="radio">
+              <input type="radio" name="city" value="Dallas" checked="checked">
+              Dallas
+            </label>
+            <label class="radio">
+              <input type="radio" name="city" value="Atlanta" checked="checked">
+              Atlanta
+            </label>
+            <label class="radio">
+              <input type="radio" name="city" value="Chicago" checked="checked">
+              Chicago
+            </label>
+            <label class="radio">
+              <input type="radio" name="city" value="Houston" checked="checked">
+              Houston
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="field is-horizontal">
       <div class="field-label">
         <label class="label">Which city would you like to visit?</label>
       </div>
@@ -77,7 +119,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="field is-horizontal">
       <div class="field-label">
@@ -86,7 +128,18 @@
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <input class="input true" id="days" type="text" placeholder="Enter number of days...">
+            <label class="radio">
+              <input type="radio" name="days" value="1" checked="checked">
+              1
+            </label>
+            <label class="radio">
+              <input type="radio" name="days" value="2" checked="checked">
+              2
+            </label>
+            <label class="radio">
+              <input type="radio" name="days" value="3" checked="checked">
+              3
+            </label>
           </div>
         </div>
       </div>
@@ -111,9 +164,9 @@
             <label class="checkbox">
               <input type="checkbox" id="hotels"> Hotels
             </label>
-            <label class="checkbox">
+            <!-- <label class="checkbox">
               <input type="checkbox" id="music"> Music
-            </label>
+            </label> -->
           </div>
         </div>
       </div>

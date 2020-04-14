@@ -8,12 +8,14 @@ $(document).ready(function () {
     $("#cards").show();
     event.preventDefault();
     userCityDays = {
-      city: $("#cityName")
-        .val()
-        .trim(),
-      days: $("#days")
-        .val()
-        .trim()
+      city: $('input[name="city"]:checked').val(), 
+      // $("#cityName")
+      //   .val()
+      //   .trim(),
+      days: $('input[name="days"]:checked').val(),  
+      // $("#days")
+      //   .val()
+      //   .trim()
     };
     userCategories = {
       bar: $("#nightlife").is(":checked"),
@@ -111,6 +113,7 @@ const apiCall = (categories, coordinates) => {
   return data;
 };
 const itineraryData = (apiData, userCityDays) => {
+  console.log(apiData);
   const xidArr = [];
   apiData.forEach(array => {
     for (var i = 0; i <= userCityDays.days; i++) {
