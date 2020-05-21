@@ -14,6 +14,13 @@ Users will create an account and sign into Vacationer where they can enter a cit
 
 ![Screenshot](public/img/screenshot-of-app.png)
 
+# Technologies Used
+  * MySql
+  * Passportjs
+  * Open Trip Map API
+  * Sequelize
+  * jQuery
+  * Bulma
 
 # Live site
 
