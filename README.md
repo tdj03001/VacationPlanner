@@ -10,7 +10,7 @@ Users will create an account and sign into Vacationer.  Once signed in, they can
 
 ## Screenshot
 
-![Screenshot](public/img/screenshot-of-app.png)
+![Screenshot](public/img/vacationer.gif)
 
 ## Technologies Used
   * MySql
